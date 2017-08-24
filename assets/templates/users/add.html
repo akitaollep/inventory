@@ -1,0 +1,65 @@
+<div class="modal-header">
+	<h3 ng-show="!userForm.id">Create New User</h3>
+	<h3 ng-show="userForm.id">Edit User</h3>
+</div>
+<form name="form.userForm" ng-submit="submitForm()">
+	<div class="modal-body">
+		<div class="alert alert-danger" ng-show="errorMessage && errorMessage != ''">
+            {{ errorMessage }}
+        </div>
+        
+		<div class="form-group">
+			<label>Username</label>
+			<input type="text" name="username" class="form-control" ng-model="userForm.username" required />
+			<p ng-show="form.userForm.username.$invalid && !form.userForm.username.$pristine" class="help-block">Username is required.</p>
+		</div>
+
+		<div class="form-group" ng-show="!userForm.id">
+			<label>Password</label>
+			<input type="password" name="password" class="form-control" ng-model="userForm.password" ng-required="!userForm.id" />
+			<p ng-show="form.userForm.password.$invalid && !form.userForm.password.$pristine" class="help-block">Password is required.</p>
+		</div>
+
+		<div class="form-group" ng-show="!userForm.id">
+			<label>Confirm Password</label>
+			<input type="password" name="confirmPassword" class="form-control" ng-model="userForm.confirmPassword" />
+			<p ng-show="form.userForm.confirmPassword.$invalid && !form.userForm.confirmPassword.$pristine" class="help-block">Password is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label>Email</label>
+			<input type="email" name="vat" class="form-control" ng-model="userForm.email" required />
+			<p ng-show="form.userForm.email.$invalid && !form.userForm.email.$pristine" class="help-block">Email is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label>First Name</label>
+			<input type="text" name="firstName" class="form-control" ng-model="userForm.firstName" required />
+			<p ng-show="form.userForm.firstName.$invalid && !form.userForm.firstName.$pristine" class="help-block">First Name is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label>Last Name</label>
+			<input type="text" name="lastName" class="form-control" ng-model="userForm.lastName" required />
+			<p ng-show="form.userForm.lastName.$invalid && !form.userForm.lastName.$pristine" class="help-block">Last Name is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label>Role</label>
+			<select name="role" 
+				class="form-control" 
+				ng-model="userForm.role"
+				ng-options="role for role in roles track by role"
+				>
+				<option value="">---Please select---</option>
+			</select>
+			<p ng-show="form.userForm.role.$invalid && !form.userForm.role.$pristine" class="help-block">Role is required.</p>
+		</div>
+	</div>
+</form>
+<div class="modal-footer">
+	<button class="btn btn-danger" ng-click="deleteUser(userForm.id)" ng-show="userForm.id">Delete</button>
+	<button type="submit" class="btn btn-primary" ng-disabled="form.userForm.$invalid" ng-click="submitForm()" ng-show="userForm.id">Update</button>
+	<button type="submit" class="btn btn-primary" ng-disabled="form.userForm.$invalid" ng-click="submitForm()" ng-show="!userForm.id">Create</button>
+	<button class="btn btn-default" ng-click="closeCreateNewUserForm()">Cancel</button>
+</div>
