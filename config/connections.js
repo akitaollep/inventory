@@ -28,9 +28,9 @@ module.exports.connections = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
+  // localDiskDb: {
+  //   adapter: 'sails-disk'
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -47,6 +47,23 @@ module.exports.connections = {
   //   password: 'YOUR_MYSQL_PASSWORD', //optional
   //   database: 'YOUR_MYSQL_DB' //optional
   // },
+
+  TemplateProd: {
+    adapter: 'sails-mysql',
+    host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+    port: process.env.OPENSHIFT_MYSQL_DB_PORT || 3306,
+    user: 'adminXdjCfb3', //optional
+    password: 'tAM5KaH8IqTl', //optional
+    database: 'inventory' //optional
+  },
+
+  TemplateDev: {
+   adapter: 'sails-mysql',
+   host: 'localhost',
+   user: 'root', //optional
+   password: '', //optional
+   database: 'template' //optional
+  },
 
   /***************************************************************************
   *                                                                          *

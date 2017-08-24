@@ -1,0 +1,153 @@
+<div class="modal-header">
+    <h3>View Transaction</h3>
+</div>
+
+<div class="modal-body">
+    <div class="form-group">
+        <label>Date of Transaction</label>
+        <div class="input-group" datetimepicker ng-model="orderForm.orderDate" options="dpOptions">
+            <input type="text" class="form-control" disabled/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Name of Deceased</h3>
+        </div>
+        <div class="panel-body">
+            {{ orderForm.deceasedFirstName }} {{ orderForm.deceasedMiddleName }} {{ orderForm.deceasedLastName }}
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Name of Respondent</h3>
+        </div>
+        <div class="panel-body">
+            {{ orderForm.respondentFirstName }} {{ orderForm.respondentMiddleName }} {{ orderForm.respondentLastName }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Service</label>
+        <input class="form-control" name="type" type="text" ng-model="orderForm.type" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Others'">
+        <label>Other Service Type</label>
+        <input class="form-control" name="otherType" type="text" ng-model="orderForm.orderDetails.type" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Tomb Marker / Lapida'">
+        <label>Size</label>
+        <input class="form-control" name="lapidaSize" type="text" ng-model="orderForm.orderDetails.lapidaSize" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Tomb Marker / Lapida'">
+        <label>Options</label>
+        <input class="form-control" name="lapidaOption" type="text" ng-model="orderForm.orderDetails.lapidaOption" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Tomb Marker / Lapida'">
+        <label>Name</label>
+        <input class="form-control" name="name" type="text" ng-model="orderForm.orderDetails.name" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Tomb Marker / Lapida'">
+        <label>Date of Birth</label>
+        <div class="input-group" datetimepicker ng-model="orderForm.orderDetails.dateOfBirth" options="dpOptions">
+            <input type="text" class="form-control" disabled/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Tomb Marker / Lapida'">
+        <label>Date of Death</label>
+        <div class="input-group" datetimepicker ng-model="orderForm.orderDetails.dateOfDeath" options="dpOptions">
+            <input type="text" class="form-control" disabled/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Tomb Marker / Lapida'">
+        <label>Message</label>
+        <textarea name="message" class="form-control" ng-model="orderForm.orderDetails.message" disabled></textarea>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Lot Sales'">
+        <label>Mode of Payment</label>
+        <input class="form-control" name="paymentMode" type="text" ng-model="orderForm.orderDetails.paymentMode" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Renewal' || orderForm.type == 'Interment' || orderForm.type == 'Disinterment'">
+        <label>Property</label>
+        <input class="form-control" name="property" type="text" ng-model="orderForm.orderDetails.property" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Renewal' || orderForm.type == 'Interment' || orderForm.type == 'Disinterment'">
+        <label>Lot Type</label>
+        <input class="form-control" name="lotType" type="text" ng-model="orderForm.orderDetails.lotType" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Renewal' || orderForm.type == 'Interment' || orderForm.type == 'Disinterment'">
+        <label>Type of Interment</label>
+        <input class="form-control" name="serviceType" type="text" ng-model="orderForm.orderDetails.type" disabled>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Renewal' || orderForm.type == 'Interment'">
+        <label>Date of Interment</label>
+        <div class="input-group" datetimepicker ng-model="orderForm.orderDetails.date" options="dpOptions">
+            <input type="text" class="form-control" disabled/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="orderForm.type == 'Renewal' || orderForm.type == 'Interment'">
+        <label>Date of Expiration</label>
+        <div class="input-group" datetimepicker ng-model="orderForm.orderDetails.expirationDate" options="dpOptions">
+            <input type="text" class="form-control" disabled/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Address</label>
+        <input class="form-control" name="address" type="text" ng-model="orderForm.address" disabled>
+    </div>
+
+    <div class="form-group">
+        <label>Email Address</label>
+        <input class="form-control" name="email" type="text" ng-model="orderForm.email" disabled>
+    </div>
+
+    <div class="form-group">
+        <label>Telephone Number</label>
+        <input class="form-control" name="phoneNumber" type="text" ng-model="orderForm.phoneNumber" disabled>
+    </div>
+
+    <div class="form-group">
+        <label>Mobile Number</label>
+        <input class="form-control" name="mobileNumber" type="text" ng-model="orderForm.mobileNumber" disabled>
+    </div>
+
+    <div class="alert alert-danger" role="alert" ng-show="!orderForm.orderDetails">
+        There seems to be a problem when this record was created. Please delete this order and resubmit.
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="deleteOrder(orderForm.id)">Delete</button>
+    <button class="btn btn-primary" ng-click="editForm(orderForm.id)" ng-show="orderForm.orderDetails">Edit</button>
+    <button class="btn btn-warning" ng-click="cancel()">Close</button>
+</div>

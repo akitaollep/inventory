@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-lg-12">
+    	<div class="page-header">
+    		<h1 class="pull-left">Users</h1>
+    		<div class="pull-right">
+    			<div class="btn-group">
+    				<a ng-click="showSaveUserForm()" class="btn btn-primary btn-md" title="New User">
+		    			<span class="glyphicon glyphicon-plus"></span>
+		    		</a>
+    			</div>
+    		</div>
+    		<div class="clearfix"></div>
+    	</div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="dataTable_wrapper">
+            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Full Name</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.firstName }} {{ user.lastName }}</td>
+                        <td>{{ user.role }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

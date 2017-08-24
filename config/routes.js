@@ -34,7 +34,50 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+
+  'GET /login': {
+    view: 'login'
+  },
+
+  'POST /login': 'AuthController.login',
+  '/logout': 'AuthController.logout',
+  '/isAuthenticated': 'AuthController.isAuthenticated',
+
+  'GET /orders/lotTypes': 'OrderController.getLotTypes',                   //List Order Types
+  'GET /orders/orderTypes': 'OrderController.getOrderTypes',                   //List Order Types
+  'GET /orders/types': 'OrderController.getTypes',                   //List Order Types
+  'GET /orders': 'OrderController.getOrders',                   //List Orders
+  'GET /orders/:id': 'OrderController.getOrder',                //View Order
+  'POST /orders': 'OrderController.saveOrder',                  //Create Order
+  'POST /orders/:id': 'OrderController.saveOrder',              //Edit Order
+  //'GET /receipts': 'OrderController.generateReceipt',
+  'DELETE /orders/:id': 'OrderController.deleteOrder',             //Delete Order
+
+  'GET /lapidaOrders/size': 'OrderController.getLapidaSize',                   //List Order Types
+  'GET /lapidaOrders/options': 'OrderController.getLapidaOptions',                   //List Order Types
+
+  'GET /lotSalesOrders/paymentModes': 'OrderController.getPaymentModes',                   //List Order Types
+
+  //'GET /receipts/:orderId': 'ReceiptController.getReceipts',
+  'GET /receipts/:id': 'ReceiptController.getReceipt',
+  'GET /receipts/print/:id': 'ReceiptController.printReceipt',
+  'POST /receipts': 'ReceiptController.saveReceipt',            //Create Receipt
+  'PUT /receipts/:receiptId': 'ReceiptController.issueOR',            //Create Receipt
+
+  'GET /categories': 'CategoryController.getCategories',
+
+  'GET /users/roles': 'UserController.getUserRoles',                      //List Users
+  'GET /users/:id': 'UserController.getUser',                   //Get User
+  'GET /users': 'UserController.getUsers',                      //List Users
+  'POST /users': 'UserController.saveUser',                     //Create Users
+  'DELETE /users/:id': 'UserController.deleteUser',             //Delete User
+  'PUT /password': 'UserController.changePassword',             //Create Users
+
+  'GET /roles': 'RoleController.getRoles',                       //List Users
+
+  'GET /locations': 'LocationController.getLocations',                    //List Users
+  'GET /serviceTypes': 'ServiceTypeController.getServiceTypes',                       //List Users
 
   /***************************************************************************
   *                                                                          *
