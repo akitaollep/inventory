@@ -26,39 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': true,
-
-  'OrderController': {
-    '*': 'isAuthenticated'
-  },
-
-  'RenewalOrderController': {
-    '*': 'isAuthenticated'
-  },
-
-  'UserController': {
-    '*': 'isAuthenticated'
-  },
-
-  'RoleController': {
-    '*': 'isAuthenticated'
-  },
-
-  'LocationController': {
-    '*': 'isAuthenticated'
-  },
-
-  'ServiceTypeController': {
-    '*': 'isAuthenticated'
-  },
-
-  'CategoryController': {
-    '*': 'isAuthenticated'
-  },
-
-  'ReceiptController': {
-    '*': 'isAuthenticated'
-  },
+  // '*': true,
 
   /***************************************************************************
   *                                                                          *
