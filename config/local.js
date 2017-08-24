@@ -60,8 +60,8 @@ module.exports = {
    * to 80 (http://) or 443 (https://) if you have an SSL certificate        *
    ***************************************************************************/
 
-  port: process.env.OPENSHIFT_NODEJS_PORT || 1337,
-  //port: process.env.OPENSHIFT_NODEJS_PORT || 8080,
+  //port: process.env.OPENSHIFT_NODEJS_PORT || 1337,
+  port: process.env.OPENSHIFT_NODEJS_PORT || 8080,
   //host: process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
   host: process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
 
@@ -84,7 +84,7 @@ module.exports = {
    ***************************************************************************/
 
    // environment: process.env.NODE_ENV || 'development'
-   environment: process.env.NODE_ENV || 'development',
+   //environment: process.env.NODE_ENV || 'development',
    hookTimeout: 120000
 
 };
