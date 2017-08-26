@@ -105,29 +105,29 @@ akitaApp.config(function(
 });
 
 akitaApp.directive('myNotifications', ['$interval', 'OrderService', function($interval, OrderService){
-	return function(scope, element, attrs){
-		OrderService.getOrders('renewals').then(function(response){
-			var total = response.length;
-			if(total > 0){
-				element.text(total);
-			}else{
-				element.text('');
-			}
-	    });
+	// return function(scope, element, attrs){
+	// 	OrderService.getOrders('renewals').then(function(response){
+	// 		var total = response.length;
+	// 		if(total > 0){
+	// 			element.text(total);
+	// 		}else{
+	// 			element.text('');
+	// 		}
+	//     });
 
-		$interval(function(){
-			if(sessionStorage.isLoggedIn){
-				OrderService.getOrders('renewals').then(function(response){
-			        var total = response.length;
-					if(total > 0){
-						element.text(total);
-					}else{
-						element.text('');
-					}
-			    });
-			}
-		}, 300000);
-	}
+	// 	$interval(function(){
+	// 		if(sessionStorage.isLoggedIn){
+	// 			OrderService.getOrders('renewals').then(function(response){
+	// 		        var total = response.length;
+	// 				if(total > 0){
+	// 					element.text(total);
+	// 				}else{
+	// 					element.text('');
+	// 				}
+	// 		    });
+	// 		}
+	// 	}, 300000);
+	// }
 }]);
 
 akitaApp.directive('printButton', function(){

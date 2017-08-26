@@ -39,7 +39,6 @@ module.exports = {
 				order.orderDetails = order.renewalOrders[0];
 			}
 
-			sails.log.info(order);
 			res.ok(order);
 		});
 	},
