@@ -1,0 +1,61 @@
+<div class="modal-header">
+	<h3 ng-show="!receiptForm.id">Create Acknowlegdement Receipt</h3>
+	<h3 ng-show="receiptForm.id">View Acknowlegdement Receipt</h3>
+</div>
+<form name="form.receiptForm" ng-submit="submitForm()">
+	<div class="modal-body">
+		<div class="alert alert-danger" ng-show="errorMessage && errorMessage != ''">
+            {{ errorMessage }}
+        </div>
+
+		<div class="form-group">
+			<label>Date</label>
+			<div class="input-group" datetimepicker ng-model="receiptForm.receiptDate" options="dpOptions">
+                <input type="text" class="form-control" ng-readonly="receiptForm.id" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+			<p ng-show="form.receiptForm.receiptDate.$invalid && !form.receiptForm.receiptDate.$pristine" class="help-block">Date is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label">Sales</label>
+			<input type="number" name="sales" class="form-control" ng-model="receiptForm.sales" readonly required />
+			<p ng-show="form.receiptForm.sales.$invalid && !form.receiptForm.sales.$pristine" class="help-block">Sales is required.</p>
+		</div>
+
+		<div class="form-group" ng-class="{ 'has-error' : form.receiptForm.discount.$invalid }">
+			<label class="control-label">Discount</label>
+			<input type="number" name="discount" id="discount" class="form-control" ng-model="receiptForm.discount" ng-readonly="receiptForm.id" limit-check />
+			<p ng-show="form.receiptForm.discount.$invalid && !form.receiptForm.discount.$pristine" class="help-block">Discount should not be greater than 100.</p>
+		</div>
+
+		<div class="form-group">
+			<label>VAT (12%)</label>
+			<input type="number" name="vat" class="form-control" ng-model="receiptForm.vat" readonly required />
+			<p ng-show="form.receiptForm.vat.$invalid && !form.receiptForm.vat.$pristine" class="help-block">VAT is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label>Amount</label>
+			<input type="number" name="amount" class="form-control" ng-model="receiptForm.amount" ng-readonly="receiptForm.id" required />
+			<p ng-show="form.receiptForm.amount.$invalid && !form.receiptForm.amount.$pristine" class="help-block">Amount is required.</p>
+		</div>
+
+		<div class="form-group">
+			<label>Notes</label>
+			<textarea name="notes" class="form-control" ng-model="receiptForm.notes" ng-readonly="receiptForm.id"></textarea>
+			<p ng-show="form.receiptForm.notes.$invalid && !form.receiptForm.notes.$pristine" class="help-block">Notes is required.</p>
+		</div>
+	</div>
+</form>
+<div class="modal-footer" ng-show="!receiptForm.id">
+	<button type="submit" class="btn btn-primary" ng-disabled="form.receiptForm.$invalid" ng-click="submitNewReceiptForm()" >Submit</button>
+	<button class="btn btn-warning" ng-click="closeCreateNewReceiptForm()">Cancel</button>
+</div>
+<div class="modal-footer" ng-show="receiptForm.id">
+	<button class="btn btn-primary" ng-click="printReceipt()" ng-show="userRole == 'Admin'">Print</button>
+	<button class="btn btn-primary" ng-click="issueOR()" ng-show="!receiptForm.orNumber">Issue OR</button>
+	<button class="btn btn-warning" ng-click="closeCreateNewReceiptForm()">Close</button>
+</div>
