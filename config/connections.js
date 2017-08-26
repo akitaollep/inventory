@@ -50,18 +50,18 @@ module.exports.connections = {
 
   TemplateProd: {
     adapter: 'sails-mysql',
-    host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+    host: process.env.OPENSHIFT_MYSQL_DB_HOST || '172.30.67.81',
     port: process.env.OPENSHIFT_MYSQL_DB_PORT || 3306,
-    user: 'adminXdjCfb3', //optional
-    password: 'tAM5KaH8IqTl', //optional
+    user: 'userUYU', //optional
+    password: 'IWbydcYcbBgETdw2', //optional
     database: 'inventory' //optional
   },
 
   TemplateDev: {
    adapter: 'sails-mysql',
-   host: 'localhost',
+   host: '172.30.67.81',
    user: 'root', //optional
-   password: '', //optional
+   password: 'DQKjMAENPiSNKqSX', //optional
    database: 'template' //optional
   },
 
