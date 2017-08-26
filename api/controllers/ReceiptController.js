@@ -137,6 +137,11 @@ module.exports = {
 				};
 
 				pdf.create(html, config).toStream(function(err, stream){
+					if(err){
+						sails.log.error(err);
+						return res.serverError();
+					}
+
 					stream.pipe(res);
 				});
 			});
