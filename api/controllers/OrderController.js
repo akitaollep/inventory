@@ -46,17 +46,22 @@ module.exports = {
 		var subfilter = {};
 
 		if(req.query && req.query.type && req.query.type == 'renewals'){
-			Order.find({
-				type: ['Renewal', 'Interment', 'Disinterment'],
-				status : ['Ordered', 'Expired']
-			})
-			.populate('disintermentOrders')
-			.populate('intermentOrders')
-			.populate('lapidaOrders')
-			.populate('lotSalesOrders')
-			.populate('otherOrders')
-			.populate('renewalOrders')
-			.exec(function(err, orders){
+			var stmt = 'select ord.*, ' 
+				+ 'ord.respondent_first_name as respondentFirstName, '
+				+ 'ord.respondent_last_name as respondentLastName, '
+				+ 'ord.deceased_first_name as deceasedFirstName, '
+				+ 'ord.deceased_last_name as deceasedLastName, '
+				+ 'intOrd.expirationDate as intExpirationDate, ' 
+				+ 'renOrd.expirationDate as RenExpirationDate, othOrd.type as OtherType '
+				+ 'from orders ord left join disintermentOrders disOrd on ord.id = disOrd.order '
+				+ 'left join intermentOrders intOrd on ord.id = intOrd.order ' 
+				+ 'left join lapidaOrders lapOrd on ord.id = lapOrd.order ' 
+				+ 'left join lotSalesOrders lotOrd on ord.id = lotOrd.order ' 
+				+ 'left join otherOrders othOrd on ord.id = othOrd.order ' 
+				+ 'left join renewalOrders renOrd on ord.id = renOrd.order '
+				+ 'where ord.status in (\'Ordered\', \'Expired\') ' 
+				+ 'and ord.type in (\'Renewal\', \'Interment\', \'Disinterment\')';
+			Order.query(stmt, [], function(err, orders){
 				if(err){
 					sails.log.error(err);
 					return res.serverError();
@@ -72,13 +77,17 @@ module.exports = {
 
 					//if(order.type == 'Renewal' || order.type == 'Interment' || order.type == 'Disinterment'){
 					if(order.type == 'Renewal' || order.type == 'Interment'){
-						if(order.intermentOrders.length){
-							order.orderDetails = order.intermentOrders[0];
-						}else if(order.renewalOrders.length){
-							order.orderDetails = order.renewalOrders[0];
+						// if(order.intermentOrders.length){
+						// 	order.orderDetails = order.intermentOrders[0];
+						// }else if(order.renewalOrders.length){
+						// 	order.orderDetails = order.renewalOrders[0];
+						// }
+
+						if(order.intExpirationDate && moment(order.intExpirationDate).isBefore(expirationDateLimit)){
+							result.push(order);
 						}
 
-						if(order.orderDetails && moment(order.orderDetails.expirationDate).isBefore(expirationDateLimit)){
+						if(order.RenExpirationDate && moment(order.RenExpirationDate).isBefore(expirationDateLimit)){
 							result.push(order);
 						}
 					}else{
@@ -88,44 +97,112 @@ module.exports = {
 
 				res.ok(result);
 			});
+
+			// Order.find({
+			// 	type: ['Renewal', 'Interment', 'Disinterment'],
+			// 	status : ['Ordered', 'Expired']
+			// })
+			// .populate('disintermentOrders')
+			// .populate('intermentOrders')
+			// .populate('lapidaOrders')
+			// .populate('lotSalesOrders')
+			// .populate('otherOrders')
+			// .populate('renewalOrders')
+			// .exec(function(err, orders){
+			// 	if(err){
+			// 		sails.log.error(err);
+			// 		return res.serverError();
+			// 	}
+
+			// 	var result = [];
+			// 	var expirationDateLimit = moment().add(1, 'month').startOf('month').format('YYYY-MM-DD');
+
+			// 	for(var index in orders){
+			// 		var order = orders[index];
+
+			// 		//sails.log(order);
+
+			// 		//if(order.type == 'Renewal' || order.type == 'Interment' || order.type == 'Disinterment'){
+			// 		if(order.type == 'Renewal' || order.type == 'Interment'){
+			// 			if(order.intermentOrders.length){
+			// 				order.orderDetails = order.intermentOrders[0];
+			// 			}else if(order.renewalOrders.length){
+			// 				order.orderDetails = order.renewalOrders[0];
+			// 			}
+
+			// 			if(order.orderDetails && moment(order.orderDetails.expirationDate).isBefore(expirationDateLimit)){
+			// 				result.push(order);
+			// 			}
+			// 		}else{
+			// 			continue;
+			// 		}
+			// 	}
+
+			// 	res.ok(result);
+			// });
 		}else{
 			sails.log.debug('Start of call: ' + new Date());
-			Order.find({
-				status : ['Ordered', 'Expired']
-			})
-			.populate('disintermentOrders')
-			.populate('intermentOrders')
-			.populate('lapidaOrders')
-			.populate('lotSalesOrders')
-			.populate('otherOrders')
-			.populate('renewalOrders')
-			.exec(function(err, orders){
+
+			var stmt = 'select ord.*, ' 
+				+ 'ord.respondent_first_name as respondentFirstName, '
+				+ 'ord.respondent_last_name as respondentLastName, '
+				+ 'ord.deceased_first_name as deceasedFirstName, '
+				+ 'ord.deceased_last_name as deceasedLastName, '
+				+ 'intOrd.expirationDate as intExpirationDate, ' 
+				+ 'renOrd.expirationDate as RenExpirationDate, othOrd.type as OtherType '
+				+ 'from orders ord left join disintermentOrders disOrd on ord.id = disOrd.order '
+				+ 'left join intermentOrders intOrd on ord.id = intOrd.order ' 
+				+ 'left join lapidaOrders lapOrd on ord.id = lapOrd.order ' 
+				+ 'left join lotSalesOrders lotOrd on ord.id = lotOrd.order ' 
+				+ 'left join otherOrders othOrd on ord.id = othOrd.order ' 
+				+ 'left join renewalOrders renOrd on ord.id = renOrd.order '
+				+ 'where ord.status in (\'Ordered\', \'Expired\')';
+			Order.query(stmt, [], function(err, orders){
 				if(err){
 					sails.log.error(err);
 					return res.serverError();
 				}
 
-				for(var index in orders){
-					var order = orders[index];
-
-					if(order.disintermentOrders.length){
-						order.orderDetails = order.disintermentOrders[0];
-					}else if(order.intermentOrders.length){
-						order.orderDetails = order.intermentOrders[0];
-					}else if(order.lapidaOrders.length){
-						order.orderDetails = order.lapidaOrders[0];
-					}else if(order.lotSalesOrders.length){
-						order.orderDetails = order.lotSalesOrders[0];
-					}else if(order.otherOrders.length){
-						order.orderDetails = order.otherOrders[0];
-					}else if(order.renewalOrders.length){
-						order.orderDetails = order.renewalOrders[0];
-					}
-				}
-
 				sails.log.debug('End of call: ' + new Date());
 				res.ok(orders);
 			});
+
+			// Order.find({
+			// 	status : ['Ordered', 'Expired']
+			// })
+			// .populate('disintermentOrders')
+			// .populate('intermentOrders')
+			// .populate('lapidaOrders')
+			// .populate('lotSalesOrders')
+			// .populate('otherOrders')
+			// .populate('renewalOrders')
+			// .exec(function(err, orders){
+			// 	if(err){
+			// 		sails.log.error(err);
+			// 		return res.serverError();
+			// 	}
+
+			// 	for(var index in orders){
+			// 		var order = orders[index];
+
+			// 		if(order.disintermentOrders.length){
+			// 			order.orderDetails = order.disintermentOrders[0];
+			// 		}else if(order.intermentOrders.length){
+			// 			order.orderDetails = order.intermentOrders[0];
+			// 		}else if(order.lapidaOrders.length){
+			// 			order.orderDetails = order.lapidaOrders[0];
+			// 		}else if(order.lotSalesOrders.length){
+			// 			order.orderDetails = order.lotSalesOrders[0];
+			// 		}else if(order.otherOrders.length){
+			// 			order.orderDetails = order.otherOrders[0];
+			// 		}else if(order.renewalOrders.length){
+			// 			order.orderDetails = order.renewalOrders[0];
+			// 		}
+			// 	}
+
+			// 	sails.log.debug('End of call: ' + new Date());
+			// 	res.ok(orders);
+			// });
 		}
 	},
 	saveOrder: function(req, res){

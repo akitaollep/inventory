@@ -57,7 +57,7 @@
                         <td>{{ order.sales | number : 2 }}</td>
                         <td>{{ order.vat | number : 2 }}</td>
                         <td>{{ order.amount | number : 2 }}</td>
-                        <td>{{ order.type != 'Others' ? order.type : order.orderDetails.type }}</td>
+                        <td>{{ order.type != 'Others' ? order.type : order.OtherType }}</td>
                     </tr>
                 </tbody>
             </table>
