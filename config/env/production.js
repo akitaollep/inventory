@@ -33,7 +33,7 @@ module.exports = {
 
   log: {
     level: "info"
-  }
+  },
 
   keepResponseErrors: true
 
